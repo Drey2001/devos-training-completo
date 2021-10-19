@@ -60,8 +60,8 @@ podTemplate(yaml: '''
           sh 'mkdir -p ~/.kube/'
           sh 'cp $FILE ~/.kube/config'
           sh 'kubectl apply -f page.yaml'
-          sh 'kubectl label namespace cgomez istio-injection=enabled --overwrite'
-          sh 'kubectl rollout restart -n cgomez deployment/cgomez-deployment'
+          sh 'kubectl label namespace ssmile istio-injection=enabled --overwrite'
+          sh 'kubectl rollout restart -n ssmile deployment/ssmile-deployment'
         }
       }
     }
