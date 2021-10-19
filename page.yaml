@@ -2,31 +2,31 @@
 kind: Namespace
 apiVersion: v1
 metadata:
-  name: cgomez
+  name: ssmile
   labels:
-    name: cgomez
+    name: ssmile
 ---
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: cgomez-deployment
-  namespace: cgomez
+  name: ssmile-deployment
+  namespace: ssmile
   labels:
-    app: cgomez
+    app: ssmile
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: cgomez
+      app: ssmile
   template:
     metadata:
       labels:
-        app: cgomez
+        app: ssmile
     spec:
       nodeSelector:
         purpose: general
       containers:
-      - name: cgomez
+      - name: ssmile
         image: charlie83gs/react_page:latest
         ports:
         - containerPort: 3000
@@ -35,11 +35,11 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: cgomez-service
-  namespace: cgomez
+  name: ssmile-service
+  namespace: ssmile
 spec:
   selector:
-    app: cgomez
+    app: ssmile
   ports:
   - protocol: TCP
     port: 3000
@@ -48,19 +48,19 @@ spec:
 apiVersion: networking.istio.io/v1alpha3
 kind: VirtualService
 metadata:
-  name: cgomez
-  namespace: cgomez
+  name: ssmile
+  namespace: ssmile
 spec:
   hosts:
   - "*"
   gateways:
   - istio-custom/devops-gateway
   http:
-    - name: "cgomez-routes"
+    - name: "ssmile-routes"
       match:
       - uri: 
-          prefix: "/cgomez"
+          prefix: "/ssmile"
       route:
         - destination:
-            host: cgomez-service.cgomez.svc.cluster.local
+            host: ssmile-service.ssmile.svc.cluster.local
 
